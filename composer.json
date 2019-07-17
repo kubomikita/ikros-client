@@ -1,0 +1,31 @@
+{
+  "name": "kubomikita/ikros-client",
+  "type": "library",
+  "description": "",
+  "keywords": ["rest", "api", "ikros","alfa","omega"],
+  "license": ["GNU"],
+  "support": {
+    "issues": "https://github.com/kubomikita/ikros-client/issues"
+  },
+  "authors": [
+    {
+      "name": "Jakub Mikita",
+      "homepage": "http://www.jakubmikita.sk"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  },
+  "require": {
+    "php": ">= 7.2.0",
+    "guzzlehttp/guzzle": "~6.0",
+    "nette/utils": "^3.0",
+    "nette/http": "^3.0"
+
+  },
+  "require-dev": {
+    "tracy/tracy": "^2.5"
+  }
+}
