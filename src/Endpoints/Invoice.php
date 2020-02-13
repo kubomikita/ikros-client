@@ -63,14 +63,16 @@ class Invoice implements IEndpoint {
 	public function downloadInvoice(array $data, Client $client) : ?array {
 		foreach ($data["documents"] as $key => $document){
 			if(isset($document["downloadUrl"])) {
-				bdump($document);
-				$parser = new Parser($document["downloadUrl"]);
-				$d = new \Kubomikita\iKROS\Downloader($parser->parse(),Strings::webalize($client->getCompany())."_");
-				if($savePath = $client->getSavePath()) {
-					$d->setSavePath($client->getSavePath());
+				$parser = new Parser( $document["downloadUrl"] );
+				$d = new \Kubomikita\iKROS\Downloader( $parser->parse(),Strings::webalize( $client->getCompany() ) . "_" );
+				if ($savePath = $client->getSavePath()) {
+					$d->setSavePath( $client->getSavePath() );
 				}
 				$result = $d->save();
-				$data["documents"][$key]["downloadedFile"] = $result;
+				if ( $result == null ) {
+					throw new NoResponseException( "Downloader response is null" );
+				}
+				$data["documents"][ $key ]["downloadedFile"] = $result;
 			} else {
 				throw new NoResponseException("Download url of invoice is empty!");
 			}

@@ -21,7 +21,6 @@ class Parser {
 	public function parse():?string{
 		$client = new \GuzzleHttp\Client();
 		try {
-			bdump($this);
 			$response = $client->get(
 				$this->url,
 				[
@@ -30,10 +29,11 @@ class Parser {
 			$body = (string) $response->getBody();
 
 			preg_match($this->regexp, $body, $matches);
-			bdump($matches);
-			bdump($body);
-			//echo $body;exit;
 			$remoteUrl = new UrlScript($this->url);
+
+			if(empty($matches)){
+				throw new NoDataException("Doklad je momentálne nedostupný. Skúste to neskôr.");
+			}
 			return $remoteUrl->getBaseUrl().substr($matches[1],1);
 
 		} catch (\Exception $e){

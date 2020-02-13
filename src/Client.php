@@ -139,12 +139,7 @@ class Client {
 			return $responses;
 
 		} catch (ClientException $e){
-			//$response = $e->getResponse();
-			//dumpe($e);
-			/*dump($response,$e->getRequest());
-			echo (string) $e->getRequest()->getBody();
-			echo "<br><br>";
-			echo $response->getBody()->getContents();*/
+			trigger_error($e->getMessage(),E_USER_WARNING);
 		}
 
 	}
