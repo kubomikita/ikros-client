@@ -92,7 +92,8 @@ class Downloader {
 		return $matches[2];
 	}
 	public function renameFile(string $temp,string $new):string {
-		FileSystem::rename($temp,$new);
+		//FileSystem::rename($temp,$new);
+		FileSystem::copy($temp,$new); // bugfix - rename sometimes throws exception unable to rename 
 		return $new;
 	}
 }

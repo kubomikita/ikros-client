@@ -18,26 +18,24 @@ class Parser {
 		$this->regexp = $regexp;
 	}
 
+	/**
+	 * @return string|null
+	 * @throws NoDataException
+	 */
 	public function parse():?string{
 		$client = new \GuzzleHttp\Client();
-		try {
-			$response = $client->get(
-				$this->url,
-				[
-					"verify"  => false
-				] );
-			$body = (string) $response->getBody();
+		$response = $client->get(
+			$this->url,
+			[
+				"verify"  => false
+			] );
+		$body = (string) $response->getBody();
 
-			preg_match($this->regexp, $body, $matches);
-			$remoteUrl = new UrlScript($this->url);
-
-			if(empty($matches)){
-				throw new NoDataException("Doklad je momentálne nedostupný. Skúste to neskôr.");
-			}
-			return $remoteUrl->getBaseUrl().substr($matches[1],1);
-
-		} catch (\Exception $e){
-			return null;
+		preg_match($this->regexp, $body, $matches);
+		$remoteUrl = new UrlScript($this->url);
+		if(empty($matches)){
+			throw new NoDataException("Doklad je momentálne nedostupný. Skúste to neskôr.");
 		}
+		return $remoteUrl->getBaseUrl().substr($matches[1],1);
 	}
 }

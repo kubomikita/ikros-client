@@ -64,7 +64,8 @@ class Invoice implements IEndpoint {
 		foreach ($data["documents"] as $key => $document){
 			if(isset($document["downloadUrl"])) {
 				$parser = new Parser( $document["downloadUrl"] );
-				$d = new \Kubomikita\iKROS\Downloader( $parser->parse(),Strings::webalize( $client->getCompany() ) . "_" );
+				$previewUrl = $parser->parse();
+				$d = new \Kubomikita\iKROS\Downloader($previewUrl ,Strings::webalize( $client->getCompany() ) . "_" );
 				if ($savePath = $client->getSavePath()) {
 					$d->setSavePath( $client->getSavePath() );
 				}
