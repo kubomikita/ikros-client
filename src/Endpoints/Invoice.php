@@ -7,6 +7,7 @@ use Kubomikita\iKROS\Client;
 use Kubomikita\iKROS\NoDataException;
 use Kubomikita\iKROS\NoResponseException;
 use Kubomikita\iKROS\Parser;
+use Nette\Utils\DateTime;
 use Nette\Utils\Strings;
 
 class Invoice implements IEndpoint {
@@ -26,6 +27,12 @@ class Invoice implements IEndpoint {
 	private $closingText;
 	/** @var string  */
 	private $paymentType = "bankovým prevodom";
+	/** @var DateTime */
+	private $createDate;
+	/** @var DateTime */
+	private $completionDate;
+	/** @var DateTime */
+	private $dueDate;
 	/** @var array  */
 	private $items = [];
 
@@ -48,6 +55,9 @@ class Invoice implements IEndpoint {
 			"closingText" => $this->closingText,
 			"paymentType" => $this->paymentType,
 			"items" => $this->items,
+			"createDate" => $this->createDate,
+			"completionDate" => $this->completionDate,
+			"dueDate" => $this->dueDate
 		];
 		if($this->numberingSequence !== null){
 			$data["numberingSequence"] = $this->numberingSequence;
@@ -157,6 +167,27 @@ class Invoice implements IEndpoint {
 	 */
 	public function setPaymentType( string $paymentType ): void {
 		$this->paymentType = $paymentType;
+	}
+
+	/**
+	 * @param DateTime $createDate
+	 */
+	public function setCreateDate( DateTime $createDate ): void {
+		$this->createDate = $createDate->format("Y-m-d")."T".(new DateTime())->format("H:i:s");
+	}
+
+	/**
+	 * @param DateTime $completionDate
+	 */
+	public function setCompletionDate( DateTime $completionDate ): void {
+		$this->completionDate = $completionDate->format("Y-m-d")."T".(new DateTime())->format("H:i:s");;
+	}
+
+	/**
+	 * @param DateTime $dueDate
+	 */
+	public function setDueDate( DateTime $dueDate ): void {
+		$this->dueDate = $dueDate->format("Y-m-d")."T".(new DateTime())->format("H:i:s");;
 	}
 
 }
