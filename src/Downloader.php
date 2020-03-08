@@ -83,11 +83,17 @@ class Downloader {
 
 	}
 
-	public function getOriginalName( string $content_disposition):?string{
+	public function getOriginalName( string $content_disposition = null):?string{
+		if($content_disposition === null){
+			throw new FileNotExistsException();
+		}
 		preg_match('/\"(.*)\"/m',$content_disposition,$matches);
 		return $matches[1];
 	}
-	public function getFileNumber(string $original_name):?string{
+	public function getFileNumber(string $original_name = null):?string{
+		if($original_name === null){
+			throw new FileNotExistsException();
+		}
 		preg_match('/([_A-Za-z]+)([0-9]+)\.pdf/m',$original_name,$matches);
 		return $matches[2];
 	}
