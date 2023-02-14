@@ -20,7 +20,7 @@
   },
   "require": {
     "php": ">= 7.2.0",
-    "guzzlehttp/guzzle": "~6.0",
+    "guzzlehttp/guzzle": "^7.5",
     "nette/utils": "^3.0",
     "nette/http": "^3.0"
 
