@@ -3,7 +3,7 @@
   "type": "library",
   "description": "",
   "keywords": ["rest", "api", "ikros","alfa","omega"],
-  "license": ["GNU"],
+  "license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
   "support": {
     "issues": "https://github.com/kubomikita/ikros-client/issues"
   },
